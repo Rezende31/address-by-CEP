@@ -11,6 +11,7 @@ public class Address {
 	private String estado; //uf
 	private Double frete;
 	
+	
 	public Address() {
 		super();
 	}
@@ -82,5 +83,6 @@ public class Address {
 	public void setFrete(Double frete) {
 		this.frete = frete;
 	}
+	
 	
 }

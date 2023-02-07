@@ -73,4 +73,5 @@ public class AddressViaCep {
 		this.uf = uf;
 	}
 	
+	
 }

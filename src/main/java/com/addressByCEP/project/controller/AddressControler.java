@@ -12,24 +12,41 @@ import com.addressByCEP.project.model.Address;
 import com.addressByCEP.project.model.CepRequest;
 import com.addressByCEP.project.service.AddressService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "v1/consulta-endereco")
+@Api(value = "Endereço", description = "Consulta endereço e cálculo de frete por CEP")
 public class AddressControler {
 	
 	@Autowired
 	private AddressService service;
 	
 	@PostMapping
-	public ResponseEntity<Address> findByCep(@RequestBody CepRequest cep){
-		Address address =  service.findAddress(cep.getCep());
-		return ResponseEntity.ok().body(address);
-		
-//		try {
+	@ApiOperation(value = "Consulta endereço e cálculo de frete por CEP")
+	public ResponseEntity<Address> findByCep(@RequestBody CepRequest cep) {
+		try {
+			cep.setCep(cep.getCep().replaceAll("-", ""));
+			if(!service.isCepValid(cep.getCep())) {
+				return ResponseEntity.badRequest().build();
+			}
+			
+			Address address =  service.findAddress(cep.getCep());
+			
+//			String json = "{\"error\": true}";
+//			ObjectMapper mapper = new ObjectMapper();
 //			
-//		}catch (InvalidCepException e) {
-//	        return ResponseEntity.badRequest().build();
-//		}
+//			ResponseErro erro = mapper.readValue(json, ResponseErro.class);
+			
+			return ResponseEntity.ok().body(address);
+			
+		} catch (InvalidCepException e) {
+	        return ResponseEntity.notFound().build();
+	    }
+		
+		
 	}
 
 }

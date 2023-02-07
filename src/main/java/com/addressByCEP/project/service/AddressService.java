@@ -1,6 +1,7 @@
 package com.addressByCEP.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.addressByCEP.project.exception.InvalidCepException;
@@ -15,34 +16,18 @@ public class AddressService {
 	private AddressRepository repository;
 	
 	
-	public Address findAddress(String cep) {
-		AddressViaCep addressViaCep = new AddressViaCep();
-		Address address = new Address();
-		
-		boolean cepValid = this.isCepValid(cep);
-		
-		if(cepValid) {
-			addressViaCep = repository.findAddress(cep);
-			address = this.mapperAddress(addressViaCep);
-			return address;
-		}
-		return null;
-	}
-	
-//	public boolean isCepValid(String cep) throws InvalidCepException {
-//	    if (cep == null || cep.length() != 8) {
-//	    	throw new InvalidCepException("CEP inválido");
-//	    }
-//	    return cep.matches("[0-9]{8}");
-//	}
-	
-	public boolean isCepValid(String cep)   {
-	    if (!cep.matches("[0-9]{8}")) {
-	    	return false;
+	public boolean isCepValid(String cep) throws InvalidCepException {
+	    if (cep == null || cep.length() != 8) {
+	    	throw new InvalidCepException("CEP inválido");
 	    }
-	    return true;
+	    return cep.matches("[0-9]{8}");
 	}
 	
+	
+	public Address findAddress(String cep)  {
+		AddressViaCep addressViaCep = repository.findAddress(cep);
+		return this.mapperAddress(addressViaCep);
+	}
 	
 	private Address mapperAddress(AddressViaCep addressViaCep) {
 		Address result = new Address();
