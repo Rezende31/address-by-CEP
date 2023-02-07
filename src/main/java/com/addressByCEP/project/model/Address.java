@@ -3,20 +3,20 @@ package com.addressByCEP.project.model;
 
 public class Address {
 	
-	private String cep;
-	private String rua;
+	private String cep; //cep
+	private String rua; //logradouro
 	private String complemento;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private String frete;
+	private String bairro; //bairro
+	private String cidade; //localidade
+	private String estado; //uf
+	private Double frete;
 	
 	public Address() {
 		super();
 	}
 
 	public Address(String cep, String rua, String complemento, String bairro, String cidade, String estado,
-			String frete) {
+			Double frete) {
 		super();
 		this.cep = cep;
 		this.rua = rua;
@@ -75,11 +75,11 @@ public class Address {
 		this.estado = estado;
 	}
 
-	public String getFrete() {
+	public Double getFrete() {
 		return frete;
 	}
 
-	public void setFrete(String frete) {
+	public void setFrete(Double frete) {
 		this.frete = frete;
 	}
 	
