@@ -1,7 +1,6 @@
 package com.addressByCEP.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.addressByCEP.project.exception.InvalidCepException;
@@ -25,7 +24,12 @@ public class AddressService {
 	
 	
 	public Address findAddress(String cep)  {
+		Address result = new Address();
+		result =null;
 		AddressViaCep addressViaCep = repository.findAddress(cep);
+		if (addressViaCep.getUf() == null) {
+		  return result;
+		}
 		return this.mapperAddress(addressViaCep);
 	}
 	

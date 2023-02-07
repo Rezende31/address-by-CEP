@@ -1,6 +1,5 @@
 package com.addressByCEP.project.model;
 
-
 public class Address {
 	
 	private String cep; //cep
