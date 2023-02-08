@@ -18,9 +18,9 @@ import io.swagger.annotations.ApiOperation;
 
 
 @RestController
-@RequestMapping(value = "v1/consulta-endereco")
+@RequestMapping(value = "/v1/consulta-endereco")
 @Api(value = "Endereço")
-public class AddressControler {
+public class AddressController {
 	
 	@Autowired
 	private AddressService service;
